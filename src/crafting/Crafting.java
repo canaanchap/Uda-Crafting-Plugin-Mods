@@ -26,6 +26,8 @@ public class Crafting
     private final Pattern giveMultiplePattern;
     private final Pattern getPattern;
     private final Pattern getMultiplePattern;
+    private final Pattern scrollGemTradePattern;
+    private final Pattern scrollGemCreatePattern;
     private CraftingFrame frame;
     private Object interaction;
     private final ComponentStorage storage;
@@ -38,6 +40,8 @@ public class Crafting
         this.receivePattern = Pattern.compile("^\u001b\\[0m\u001b\\[37m(?:[A-Z].+? gives you|From out of nowhere,) \u001b\\[1;37m< (scraps|component|gemstone) > (.+?)\u001b\\[0m\u001b\\[37m(?:\\.| appears in your inventory\\.)\u001b\\[0m");
         this.givePattern = Pattern.compile("^\u001b\\[0m\u001b\\[37mYou give \u001b\\[1;37m< (scraps|component|gemstone) > (.+?)\u001b\\[0m\u001b\\[37m to .+\\.\u001b\\[0m$");
         this.giveMultiplePattern = Pattern.compile("^\u001b\\[0m\u001b\\[37mYou give \u001b\\[1;37m\\(\u001b\\[1;33m(\\d+)\u001b\\[1;37m\\)\u001b\\[0m\u001b\\[37m < (scraps|component|gemstone) > (.+?) to .+\\.\u001b\\[0m$");
+        this.scrollGemTradePattern = Pattern.compile("");
+        this.scrollGemCreatePattern = Pattern.compile("");
         this.getPattern = Pattern.compile("^You (get|drop) < (scraps|component|gemstone) > (.+?)\\.$");
         this.getMultiplePattern = Pattern.compile("^\u001b\\[0m\u001b\\[37mYou (get|drop) \u001b\\[1;37m\\(\u001b\\[1;33m(\\d+)\u001b\\[1;37m\\)\u001b\\[0m\u001b\\[37m < (scraps|component|gemstone) > (.+?)\\.\u001b\\[0m$");
         this.interaction = null;
@@ -167,6 +171,28 @@ public class Crafting
                     salvageCount = 0;
                 }
                 script.setVariable("UMC_SALVAGE", Integer.toString(salvageCount));
+            }
+        }
+        if (text.startsWith("You depleate your supply of")) {
+            int count = 0;
+            String item = null;
+            String type = null;
+            final Matcher gemTradeMatcher = this.scrollGemTradePattern.matcher(event);
+            if (gemTradeMatcher.find()){
+                count = Integer.parseInt(gemTradeMatcher.group(3));
+                type = gemTradeMatcher.group(1);
+                item = gemTradeMatcher.group(2);
+            }
+        }
+        if (text.startsWith("You successfully created")) {
+            int count = 0;
+            String item = null;
+            String type = null;
+            final Matcher gemCreateMatcher = this.scrollGemCreatePattern.matcher(event);
+            if (gemCreateMatcher.find()){
+                count = 1;
+                type = gemCreateMatcher.group(1);
+                item = gemCreateMatcher.group(2);
             }
         }
         if (text.startsWith("You give")) {
