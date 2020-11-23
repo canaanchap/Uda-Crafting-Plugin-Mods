@@ -761,19 +761,19 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         bag.ipadx = 10;
         int x = 0;
         int y = 0;
-        this.gemstones.clear();
-        String gemTitle = "";
-        for (final String gemstone : CraftingData.getGemstones()) {
-            if (!gemTitle.equals(gemstone.split(",", 2)[1])) {
-                if (!gemTitle.equals("")) {
-                    this.gemstones.add(" ");
-                }
-                this.gemstones.add("<html><b>Gemstones " + gemstone.split(",", 2)[1]);
-                this.gemstones.add(" ");
-                gemTitle = gemstone.split(",", 2)[1];
-            }
-            this.gemstones.add(gemstone);
-        }
+//        this.gemstones.clear();
+//        String gemTitle = "";
+//        for (final String gemstone : CraftingData.getGemstones()) {
+//            if (!gemTitle.equals(gemstone.split(",", 2)[1])) {
+//                if (!gemTitle.equals("")) {
+//                    this.gemstones.add(" ");
+//                }
+//                this.gemstones.add("<html><b>Gemstones " + gemstone.split(",", 2)[1]);
+//                this.gemstones.add(" ");
+//                gemTitle = gemstone.split(",", 2)[1];
+//            }
+//            this.gemstones.add(gemstone);
+//        }
         bag.gridy = y;
         JLabel jlabel = this.getJLabel("<html><b>Tier 1</b></html>");
         bag.gridx = 0;
@@ -803,8 +803,8 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         this.tradePanel.add(this.getJLabel(" "), bag);
         bag.gridx = 3;
         this.tradePanel.add(this.getJLabel(" "), bag);
-        bag.gridx = 4;
-        this.tradePanel.add(this.getJLabel(" "), bag);
+//        bag.gridx = 4;
+//        this.tradePanel.add(this.getJLabel(" "), bag);
         for (int cat = 65; cat <= 72; ++cat) {
             ++y;
             x = 0;
