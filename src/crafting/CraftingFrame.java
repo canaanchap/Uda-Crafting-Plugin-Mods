@@ -148,7 +148,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
     private JButton tradeComponentsButton;
     private JPanel tradePanel;
     private JPanel tradeTab;
-    private JPanel autoTradeTab;
     private JCheckBox weaponBox;
     private JCheckBox wilBox;
     private JCheckBox wisBox;
@@ -761,19 +760,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         bag.ipadx = 10;
         int x = 0;
         int y = 0;
-//        this.gemstones.clear();
-//        String gemTitle = "";
-//        for (final String gemstone : CraftingData.getGemstones()) {
-//            if (!gemTitle.equals(gemstone.split(",", 2)[1])) {
-//                if (!gemTitle.equals("")) {
-//                    this.gemstones.add(" ");
-//                }
-//                this.gemstones.add("<html><b>Gemstones " + gemstone.split(",", 2)[1]);
-//                this.gemstones.add(" ");
-//                gemTitle = gemstone.split(",", 2)[1];
-//            }
-//            this.gemstones.add(gemstone);
-//        }
         bag.gridy = y;
         JLabel jlabel = this.getJLabel("<html><b>Tier 1</b></html>");
         bag.gridx = 0;
@@ -791,9 +777,7 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         bag.gridx = 3;
         this.tradePanel.add(jlabel, bag);
         this.labelMap.put("T4Trades", jlabel);
-//        bag.gridx = 4;
-//        this.tradePanel.add(this.getNextGem(), bag);
-//        ++y;
+        ++y;
         bag.gridy = y;
         bag.gridx = 0;
         this.tradePanel.add(this.getJLabel(" "), bag);
@@ -803,8 +787,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         this.tradePanel.add(this.getJLabel(" "), bag);
         bag.gridx = 3;
         this.tradePanel.add(this.getJLabel(" "), bag);
-//        bag.gridx = 4;
-//        this.tradePanel.add(this.getJLabel(" "), bag);
         for (int cat = 65; cat <= 72; ++cat) {
             ++y;
             x = 0;
@@ -830,8 +812,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
                     ++x;
                 }
             }
-            bag.gridx = x;
-            this.tradePanel.add(this.getNextGem(), bag);
         }
         ++y;
         bag.gridy = y;
@@ -842,8 +822,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         bag.gridx = 2;
         this.tradePanel.add(this.getJLabel(" "), bag);
         bag.gridx = 3;
-        this.tradePanel.add(this.getJLabel(" "), bag);
-        bag.gridx = 4;
         this.tradePanel.add(this.getJLabel(" "), bag);
         for (int cat = 65; cat <= 72; ++cat) {
             ++y;
@@ -870,8 +848,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
                     ++x;
                 }
             }
-            bag.gridx = x;
-            this.tradePanel.add(this.getNextGem(), bag);
         }
         ++y;
         bag.gridy = y;
@@ -882,8 +858,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         bag.gridx = 2;
         this.tradePanel.add(this.getJLabel(" "), bag);
         bag.gridx = 3;
-        this.tradePanel.add(this.getJLabel(" "), bag);
-        bag.gridx = 4;
         this.tradePanel.add(this.getJLabel(" "), bag);
         for (int cat = 65; cat <= 72; ++cat) {
             ++y;
@@ -910,8 +884,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
                     ++x;
                 }
             }
-            bag.gridx = x;
-            this.tradePanel.add(this.getNextGem(), bag);
         }
         ++y;
         bag.gridy = y;
@@ -922,8 +894,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         bag.gridx = 2;
         this.tradePanel.add(this.getJLabel(" "), bag);
         bag.gridx = 3;
-        this.tradePanel.add(this.getJLabel(" "), bag);
-        bag.gridx = 4;
         this.tradePanel.add(this.getJLabel(" "), bag);
         for (int cat = 65; cat <= 72; ++cat) {
             ++y;
@@ -951,7 +921,7 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
                 }
             }
             bag.gridx = x;
-            this.tradePanel.add(this.getNextGem(), bag);
+            this.tradePanel.add(this.getJLabel(" "), bag);
         }
         bag.weightx = 1.0;
         bag.weighty = 1.0;
@@ -962,7 +932,7 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         bag.gridx = 0;
         bag.gridy = y;
         this.tradePanel.add(this.getJLabel(" "), bag);
-        bag.gridx = 5;
+        bag.gridx = 4;
         bag.gridy = 0;
         final JPanel gerahfPanel = new JPanel();
         gerahfPanel.setLayout(new BorderLayout());
@@ -994,9 +964,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
                     c.setMaterialCategory("");
                     c.setMaterialType("gemstone");
                     this.componentsMap.put(c.getMaterialName(), c);
-                    this.tradeMap.put(c.getMaterialName(), c);
-//                    script.print("Material Name: " +c.getMaterialName());
-//                    script.print("Material Cat: " +c.getMaterialCategory());
                     return c;
                 }
                 return this.getJLabel(gem);
@@ -1274,7 +1241,7 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         }
         this.artistLabel.setText("Artist: " + totalArtist + "/" + nextLevel + "]");
         if (this.canTrade) {
-            this.tabs.setTitleAt(1, "<html><b>Scraps (" + totalScraps + ")</html>");
+            this.tabs.setTitleAt(1, "<html><b>Scraps (" + totalScraps + ")");
         }
         else {
             this.tabs.setTitleAt(1, "<html>Scraps (" + totalScraps + ")");
@@ -1615,7 +1582,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
     
     public void leftClick(final ComponentJPanel item) {
         if (this.primaryPanel.getComponentCount() < 1 || item.getMaterialCount() < 1 || item.getMaterialName().startsWith("[")) {
-            script.print("Returning " +item.getMaterialName());
             return;
         }
         AtomicInteger state = this.duplicateMap.get(item);
@@ -1651,8 +1617,8 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         if (values != null && values.length == 2) {
             ((TitledBorder)this.primaryPanelBorder.getOutsideBorder()).setTitle("Primary Component (" + values[0] + ")");
             ((TitledBorder)this.secondaryPanelBorder.getOutsideBorder()).setTitle("Trade Components (" + values[1] + ")");
-            this.secondaryPanel.repaint();
             this.primaryPanel.repaint();
+            this.secondaryPanel.repaint();
         }
     }
     
@@ -1804,7 +1770,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         this.jScrollPane4 = new JScrollPane();
         this.compPanel = new JPanel();
         this.tradeTab = new JPanel();
-        this.autoTradeTab = new JPanel();
         this.jScrollPane6 = new JScrollPane();
         this.tradePanel = new JPanel();
         this.jCheckBox1 = new JCheckBox();
@@ -2275,7 +2240,7 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         this.recipeTab.setLayout((LayoutManager)recipeTabLayout);
         recipeTabLayout.setHorizontalGroup((GroupLayout.Group)recipeTabLayout.createParallelGroup(1).add(2, (GroupLayout.Group)recipeTabLayout.createSequentialGroup().addContainerGap().add((GroupLayout.Group)recipeTabLayout.createParallelGroup(2).add(1, (Component)this.recipeScrollPanel).add(1, (Component)this.filterPanel, -1, -1, 32767)).addContainerGap()));
         recipeTabLayout.setVerticalGroup((GroupLayout.Group)recipeTabLayout.createParallelGroup(1).add((GroupLayout.Group)recipeTabLayout.createSequentialGroup().add((Component)this.filterPanel, -2, -1, -2).addPreferredGap(0).add((Component)this.recipeScrollPanel, -1, 421, 32767).addContainerGap()));
-        this.tabs.addTab("Recipes", this.recipeTab);
+        this.tabs.addTab("<html>Recipes", this.recipeTab);
         this.scrapsTab.setBackground(new Color(255, 255, 255));
         this.scrapsTab.setFont(new Font("Arial", 0, 12));
         this.scrapsTab.setLayout(new BorderLayout());
@@ -2314,7 +2279,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
         this.jScrollPane6.setViewportView(this.tradePanel);
         this.tradeTab.add(this.jScrollPane6, "Center");
         this.tabs.addTab("<html>Gerahf&nbsp;</html>", this.tradeTab);
-        this.tabs.addTab("Auto Trading", this.tradeTab);
         this.jCheckBox1.setFont(new Font("Arial", 0, 12));
         this.jCheckBox1.setText("Always on top");
         this.jCheckBox1.addActionListener(new ActionListener() {
