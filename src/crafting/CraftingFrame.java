@@ -555,7 +555,6 @@ public class CraftingFrame extends JFrame implements ClipboardOwner
                     this.gemstones.add(" ");
                 }
                 this.gemstones.add("<html><b>Gemstones " + gemstone.split(",", 2)[1]);
-                this.gemstones.add(" ");
                 gemTitle = gemstone.split(",", 2)[1];
             }
             this.gemstones.add(gemstone);
